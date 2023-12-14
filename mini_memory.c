@@ -10,7 +10,7 @@ void * mini_calloc(int size_element, int nb_element){
 
     for (malloc_element *current = malloc_list ; current != NULL ; current = current->next) {
         if (current->status == 0 && current->size >= size_element * nb_element) {
-            memset(current->ptr, '\0', size_element * nb_element);
+            mini_memset(current->ptr, '\0', size_element * nb_element);
             current->status = 1;
             return current->ptr;
         }
@@ -21,7 +21,7 @@ void * mini_calloc(int size_element, int nb_element){
         return NULL;
     }
 
-    memset(ptr, '\0', size_element * nb_element);
+    mini_memset(ptr, '\0', size_element * nb_element);
 
     malloc_element *new_element = sbrk(sizeof(malloc_element));
     if (new_element == (void *)-1) {

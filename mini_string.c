@@ -15,7 +15,7 @@ void mini_printf(char * str){
         mini_exit(1);
     }
 
-    memset(buffer, '\0', BUF_SIZE);
+    mini_memset(buffer, '\0', BUF_SIZE);
     
     for(int i = 0 ; str[i] != '\0'; i++){
 
@@ -45,7 +45,7 @@ void mini_printf(char * str){
         
     }
    
-    memset(buffer, '\0', BUF_SIZE);
+    mini_memset(buffer, '\0', BUF_SIZE);
 
 }
 

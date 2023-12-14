@@ -15,7 +15,7 @@ void mini_exit(int status);
 void mini_printf(char * str);
 int mini_scanf(char* buffer,int size_buffer);
 void mini_perror(char * message);
-
+void mini_memset(void *s, int c, size_t n);
 
 
 #endif

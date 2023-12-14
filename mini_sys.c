@@ -13,3 +13,9 @@ void mini_perror(char * message){
     printf("%i\n", errno);
 
 }
+
+void mini_memset(void *s, int c, size_t n){
+    char *p = s;
+    while(n--)
+        *p++ = (char)c;
+}
