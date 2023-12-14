@@ -42,6 +42,9 @@ int main(int argc, char **argv) {
     printf("Test de mini_printf\n");
     mini_printf("Hello world\n");
 
+    char str[5];
+    mini_scanf(str, 6);
+    mini_printf(str);
+
     mini_exit(0);
-    return 0;
 }

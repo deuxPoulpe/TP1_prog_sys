@@ -13,6 +13,8 @@ void * mini_calloc(int size_element, int nb_element);
 void mini_free(void *ptr);
 void mini_exit(int status);
 void mini_printf(char * str);
+int mini_scanf(char* buffer,int size_buffer);
+void mini_perror(char * message);
 
 
 

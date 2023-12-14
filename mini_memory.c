@@ -47,7 +47,3 @@ void mini_free(void *ptr){
     }
 }
 
-void mini_exit(int status) {
-    _exit(status);
-}
-
