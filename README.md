@@ -14,7 +14,8 @@ le problème et que si la chaine de caractère est plus petit que le buffer et n
 
 ## Exercice 20:
 
-si le nombre de caractères saisis est égal à la taille du buffer chez moi tout fonctionne.
+si le nombre de caractères saisis est supérieur à la taille du buffer on peut alors éxécuter du code sur le terminal.
+mais après ma solution si le nombre de caractère saisis est supérieur a BUF_SIZE alors Segmentation fault.
 
 
 ## Exercice 22:

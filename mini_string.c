@@ -2,17 +2,22 @@
 #include <unistd.h>
 #include <string.h>
 
-#define BUF_SIZE 1024 
+#define BUF_SIZE 1024
 #define MAX_SIZE 1024
 
 char buffer[BUF_SIZE]; 
 int ind = -1; 
 
+void mini_exit_string(){
+    write(1,buffer,ind);
+    ind = -1;
+    mini_memset(buffer,'\0',BUF_SIZE);
+}
 
 void mini_printf(char * str){
 
     if(str == NULL){
-        mini_exit(1);
+        mini_exit();
     }
 
     mini_memset(buffer, '\0', BUF_SIZE);
@@ -26,46 +31,45 @@ void mini_printf(char * str){
         if (ind >= BUF_SIZE - 1 || buffer[ind] == '\n') {
             if (write(1, buffer, ind + 1) == -1) {
                 mini_perror("Error while writing");
-                mini_exit(1);
+                mini_exit();
+
             }
             ind = -1;
+            mini_memset(buffer, '\0', BUF_SIZE);
 
 
         }
 
     }
 
-    if (ind != -1) {
-        if (write(1, buffer, ind + 1) == -1) {
-                mini_perror("Error while writing");
-                mini_exit(1);
-            }
-        ind = -1;
 
-        
-    }
-   
-    mini_memset(buffer, '\0', BUF_SIZE);
+    
 
 }
 
 
-int mini_scanf(char* buffer,int size_buffer){   
+int mini_scanf(char* buffer_scan,int size_buffer){   
     if(size_buffer < 0 || buffer == NULL){
         return -1;
     }
+    
+    char buff_sec[BUF_SIZE];
+    int bytes_read = 0;
 
-    int bytes_read = read(0,buffer,size_buffer);
-
-    if(bytes_read == -1){
-        mini_perror("Error while reading");
-        return -1;
+    while (((read(0, &buff_sec[bytes_read], 1)) > 0)) {
+        if (buff_sec[bytes_read++] == '\n') {
+            break; 
+        }
     }
-    buffer[bytes_read] = '\0';
+    for (int i = 0; i < size_buffer; i++) {
+        buffer_scan[i] = buff_sec[i];
+    }
+    buffer_scan[size_buffer] = '\0'; 
 
     return bytes_read;
-    
 }
+
+
 
 int mini_strlen(char* s) {
     int length = 0;

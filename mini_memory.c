@@ -1,7 +1,13 @@
 #include <unistd.h>
-#include <string.h>
 #include "mini_lib.h"
 
+
+typedef struct malloc_element {
+    void *ptr;
+    int size;
+    int status;
+    struct malloc_element *next;
+} malloc_element;
 
 
 malloc_element *malloc_list = NULL;
