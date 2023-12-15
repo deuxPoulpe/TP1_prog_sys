@@ -154,4 +154,25 @@ int mini_fwrite(void* buffer, int size_element, int number_element, MYFILE* file
  */
 char* int_to_char(int i);
 
+/**
+ * @brief Vide le tampon d'écriture d'un fichier.
+ *
+ * @param file Pointeur vers la structure MYFILE représentant le fichier.
+ * @return 0 si le tampon a été vidé avec succès, ou une valeur négative en cas d'erreur.
+ */
+int mini_fflush(MYFILE* file);
+
+/**
+ * @brief Ferme un fichier ouvert avec mini_fopen.
+ *
+ * @param file Pointeur vers la structure MYFILE représentant le fichier.
+ * @return 0 si le fichier a été fermé avec succès, ou une valeur négative en cas d'erreur.
+ */
+int fclose(MYFILE* file);
+
+/**
+ * @brief Libère toutes les ressources utilisées par la bibliothèque.
+ */
+void mini_exit_io();
+
 #endif

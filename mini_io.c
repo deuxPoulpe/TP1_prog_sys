@@ -5,6 +5,24 @@
 
 #define IOBUFFER_SIZE 2048
 
+// table des fichiers ouverts
+MYFILE * tab[1024];
+int ind_tab = 0;
+
+void mini_exit_io(){
+    for(int i = 0 ; i < ind_tab ; i++){
+        if(tab[i] != NULL){
+            mini_fflush(tab[i]);
+            if(tab[i]->buffer_read != NULL){
+                mini_free(tab[i]->buffer_read);
+            }
+            if(tab[i]->buffer_write != NULL){
+                mini_free(tab[i]->buffer_write);
+            }
+            mini_free(tab[i]);
+        }
+    }
+}
 
 
 MYFILE* mini_fopen(char* file, char mode){
@@ -15,8 +33,16 @@ MYFILE* mini_fopen(char* file, char mode){
     fl->ind_read = -1;
     fl->ind_write = -1;
     fl->fd = open(file, mode);
+
+    if (fl->fd == -1) {
+        mini_free(fl);
+        return NULL;
+    }
+
+    tab[ind_tab++] = fl;
     return fl;
 }
+
 
 
 int mini_fread(void *buffer, int size_element, int number_element, MYFILE *file) {
@@ -93,13 +119,45 @@ int mini_fwrite(void *buffer, int size_element, int number_element, MYFILE *file
             file->ind_write = 0;
         }
     }
-    if (file->ind_write > 0) {
-        int bytes_written = write(file->fd, file->buffer_write, file->ind_write);
-        if (bytes_written < 0) {
-            return -1;
-        }
-        file->ind_write = 0; 
-    }
 
     return total_bytes_written;
+}
+
+
+int mini_fflush(MYFILE* file) {
+    if (file == NULL) {
+        return -1;
+    }
+
+    if (file->buffer_write == NULL || file->ind_write == 0) {
+        return 0;
+    }
+
+    int bytes_written = write(file->fd, file->buffer_write, file->ind_write);
+    if (bytes_written < 0) {
+        return -1;
+    }
+
+    file->ind_write = 0;
+
+    return bytes_written;
+}
+
+
+int fclose(MYFILE* file) {
+    if (file == NULL) {
+        return -1;
+    }
+
+    int flush_result = mini_fflush(file);
+    if (flush_result == -1) {
+        return -1;
+    }
+
+    int close_result = close(file->fd);
+    if (close_result == -1) {
+        return -1;
+    }
+
+    return 0;
 }

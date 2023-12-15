@@ -66,12 +66,13 @@ int main(int argc, char **argv) {
 
     char *str2 = "coucou";
     mini_fwrite(str2, 1, 6, file);
+    mini_fflush(file);
 
-    mini_memset(buffer, '\0', 1024);
 
-    mini_fread(buffer, 1, 1024, file);
-    mini_printf(buffer);
+    char *str3 = "toto";
+    mini_fwrite(str3, 1, 4, file);
 
-    close(file->fd);
+
+    fclose(file);
     mini_exit();
 }

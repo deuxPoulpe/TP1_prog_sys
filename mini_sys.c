@@ -6,6 +6,7 @@ extern int errno;
 
 void mini_exit() {
     mini_exit_string();
+    mini_exit_io();
     _exit(1);
 }
 
