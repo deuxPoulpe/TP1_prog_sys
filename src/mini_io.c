@@ -161,3 +161,28 @@ int fclose(MYFILE* file) {
 
     return 0;
 }
+
+int mini_fgetc(MYFILE *file) {
+    if (file == NULL || file->fd == -1) {
+        return -1;
+    }
+
+    if (file->buffer_read == NULL) {
+        file->buffer_read = (char *)mini_calloc(IOBUFFER_SIZE, sizeof(char));
+        if (file->buffer_read == NULL) {
+            return -1;
+        }
+        file->ind_read = IOBUFFER_SIZE;
+    }
+
+    if (file->ind_read >= IOBUFFER_SIZE) {
+        int bytes_read = read(file->fd, file->buffer_read, IOBUFFER_SIZE);
+        if (bytes_read <= 0) {
+            return -1;
+        }
+        file->ind_read = 0;
+    }
+
+    char character = ((char *)file->buffer_read)[file->ind_read++];
+    return (int)character;
+}

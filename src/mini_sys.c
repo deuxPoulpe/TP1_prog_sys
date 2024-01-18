@@ -1,7 +1,6 @@
 #include "mini_lib.h"
 #include <errno.h>  
 #include <unistd.h>
-#include <string.h>
 extern int errno;
 
 void mini_exit() {

@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     mini_printf(str);
 
 
-    mini_printf("Test mini_fopen et mini_fread\n");
+    mini_printf("=========== Test de mini_fread/write ===========\n");
 
     MYFILE *file = mini_fopen("test.txt", 'b');
     if (file == NULL) {
@@ -71,6 +71,24 @@ int main(int argc, char **argv) {
 
     char *str3 = "toto";
     mini_fwrite(str3, 1, 4, file);
+    mini_printf("=========== Fin du test de mini_fread/write ===========\n");
+
+    mini_printf("=========== Test de mini_fgetc ===========\n");
+
+    MYFILE *test_file = mini_fopen("test.txt", 'r');
+    if (test_file == NULL) {
+        mini_printf("Échec de l'ouverture du fichier test.txt\n");
+        mini_exit(1);
+    }
+
+    int charRead;
+    while ((charRead = mini_fgetc(test_file)) != -1) {
+        mini_printf((char)charRead);
+    }
+
+    fclose(test_file);
+
+    mini_printf("=========== Fin du test de mini_fgetc ===========\n");
 
 
     fclose(file);

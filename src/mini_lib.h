@@ -175,4 +175,15 @@ int fclose(MYFILE* file);
  */
 void mini_exit_io();
 
+
+/**
+ * @brief Lit un caractère depuis un fichier ouvert avec mini_fopen.
+ *      Si le tampon de lecture est vide, il est rempli avec mini_fread.    
+ * @param file Pointeur vers la structure MYFILE représentant le fichier
+ * @return Le caractère lu ou -1 en cas d'erreur.
+ */
+
+int mini_fgetc(MYFILE *file);
+
+
 #endif
