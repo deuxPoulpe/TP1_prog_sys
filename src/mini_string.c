@@ -39,12 +39,7 @@ void mini_printf(char * str){
 
 
         }
-
     }
-
-
-    
-
 }
 
 
@@ -81,17 +76,17 @@ int mini_strlen(char* s) {
     return length;
 }
 
-int mini_strcpy(char* s, char* d) {
-    if(s == NULL || d == NULL){
+int mini_strcpy(char* str1, char* str2) {
+    if(str1 == NULL || str2 == NULL){
         return -1;
     }
     int i = 0;
-    while (s[i] != '\0' && i < MAX_SIZE)
+    while (str1[i] != '\0' && i < MAX_SIZE)
     {
-        d[i] = s[i];
+        str1[i] = str2[i];
         i++;
     }
-    d[i] = '\0';  
+    str1[i] = '\0';  
     return i;     
 }
 

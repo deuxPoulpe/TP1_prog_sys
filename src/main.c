@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 
+
 int main(int argc, char **argv) {
 
     mini_printf("Test de mini_calloc et mini_free\n");
@@ -60,7 +61,6 @@ int main(int argc, char **argv) {
     mini_printf("Fichier ouvert\n");
 
     char buffer[1024];
-
     mini_fread(buffer, 1, 1024, file);
     mini_printf(buffer);
 
@@ -71,26 +71,34 @@ int main(int argc, char **argv) {
 
     char *str3 = "toto";
     mini_fwrite(str3, 1, 4, file);
+    mini_fflush(file);
+    
+
     mini_printf("=========== Fin du test de mini_fread/write ===========\n");
+    fclose(file);
 
     mini_printf("=========== Test de mini_fgetc ===========\n");
 
-    MYFILE *test_file = mini_fopen("test.txt", 'r');
-    if (test_file == NULL) {
-        mini_printf("Échec de l'ouverture du fichier test.txt\n");
+    MYFILE* new_file = mini_fopen("test.txt", 'b');
+    if (new_file == NULL) {
+        mini_printf("Échec de l'ouverture du fichier\n");
         mini_exit(1);
     }
 
-    int charRead;
-    while ((charRead = mini_fgetc(test_file)) != -1) {
-        mini_printf((char)charRead);
-    }
+    int charRead = 0;
+    char gets_str[2];
+    gets_str[1] = '\n';
 
-    fclose(test_file);
+    charRead = mini_fgetc(new_file);
+    gets_str[0] = (char)charRead;
+    mini_printf(int_to_char(charRead));
+    mini_printf(gets_str);
 
+    mini_fputc(new_file, 'a');
+
+    
     mini_printf("=========== Fin du test de mini_fgetc ===========\n");
+    fclose(new_file);
 
-
-    fclose(file);
     mini_exit();
 }

@@ -1,30 +1,47 @@
-# Variables
 CC = gcc
-CFLAGS = -Wall 
-SRC_DIR = src
-OBJ = main.o mini_sys.o mini_string.o mini_memory.o mini_io.o
-EXEC = main
+CFLAGS = -Wall -Wextra -g
+OBJ_DIR = obj
 
-# Rules
-all: $(EXEC)
+# Path: src/
+SRC_MAIN = src/main.c
+SRC_TOUCH = src/mini_lib/mini_touch.c
+SRC_CP = src/mini_lib/mini_cp.c
+SRC_ECHO = src/mini_lib/mini_echo.c
+DEPS_MAIN = $(wildcard src/*.h)
+DEPS_TOUCH = $(wildcard src/*.h)
 
-$(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
 
-main.o: $(SRC_DIR)/main.c $(SRC_DIR)/mini_lib.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/main.c
+# Path: obj/
+OBJ_MINI_GLIBC = $(OBJ_DIR)/mini_memory.o $(OBJ_DIR)/mini_string.o $(OBJ_DIR)/mini_sys.o $(OBJ_DIR)/mini_io.o
+OBJ_MAIN = $(OBJ_DIR)/main.o $(OBJ_MINI_GLIBC)
+OBJ_TOUCH = $(OBJ_DIR)/mini_touch.o $(OBJ_MINI_GLIBC)
+OBJ_CP = $(OBJ_DIR)/mini_cp.o $(OBJ_MINI_GLIBC)
+OBJ_ECHO = $(OBJ_DIR)/mini_echo.o $(OBJ_MINI_GLIBC)
 
-mini_sys.o: $(SRC_DIR)/mini_sys.c $(SRC_DIR)/mini_lib.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/mini_sys.c
 
-mini_string.o: $(SRC_DIR)/mini_string.c $(SRC_DIR)/mini_lib.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/mini_string.c
+all: $(OBJ_DIR) main mini_touch mini_cp mini_echo
 
-mini_memory.o: $(SRC_DIR)/mini_memory.c $(SRC_DIR)/mini_lib.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/mini_memory.c
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-mini_io.o: $(SRC_DIR)/mini_io.c $(SRC_DIR)/mini_lib.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/mini_io.c
+main: $(OBJ_MAIN)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_touch: $(OBJ_TOUCH)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_cp: $(OBJ_CP)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_echo: $(OBJ_ECHO)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.o: src/%.c $(DEPS_MAIN)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_TOUCH)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 
 clean:
-	rm -f $(OBJ) $(EXEC)
+	rm -rf $(OBJ_DIR) main mini_touch

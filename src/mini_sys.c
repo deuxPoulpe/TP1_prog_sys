@@ -61,6 +61,6 @@ char * int_to_char(int i){
         j += k;
     }
 
-    str[j] = '\0';
+    str[j] = '\n';
     return str;
 }

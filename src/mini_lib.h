@@ -186,4 +186,16 @@ void mini_exit_io();
 int mini_fgetc(MYFILE *file);
 
 
+/**
+ * @brief Écrit un caractère dans un fichier ouvert avec mini_fopen.
+ *      Si le tampon d'écriture est plein, il est vidé avec mini_fflush.
+ * @param file Pointeur vers la structure MYFILE représentant le fichier
+ * @param c Caractère à écrire
+ * @return Le caractère écrit ou -1 en cas d'erreur.
+ */
+int mini_fputc(MYFILE* file, char c);
+
+
+
+
 #endif

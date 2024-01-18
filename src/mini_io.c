@@ -68,6 +68,8 @@ int mini_fread(void *buffer, int size_element, int number_element, MYFILE *file)
             if (bytes_read <= 0) { 
                 break;
             }
+            ((char *)file->buffer_read)[bytes_read] = '\n';
+            ((char *)file->buffer_read)[bytes_read + 1] = '\0';            
             file->ind_read = 0;
         }
 
@@ -81,6 +83,7 @@ int mini_fread(void *buffer, int size_element, int number_element, MYFILE *file)
         file->ind_read += bytes_to_copy;
         total_bytes_read += bytes_to_copy;
         bytes_to_read -= bytes_to_copy;
+        
     }
 
     return total_bytes_read;
@@ -184,5 +187,33 @@ int mini_fgetc(MYFILE *file) {
     }
 
     char character = ((char *)file->buffer_read)[file->ind_read++];
+
     return (int)character;
+}
+
+
+int mini_fputc(MYFILE* file, char c) {
+    if (file == NULL || file->fd == -1) {
+        return -1;
+    }
+
+    if (file->buffer_write == NULL) {
+        file->buffer_write = (char *)mini_calloc(IOBUFFER_SIZE, sizeof(char));
+        if (file->buffer_write == NULL) {
+            return -1;
+        }
+        file->ind_write = 0;
+    }
+
+    ((char *)file->buffer_write)[file->ind_write++] = c;
+
+    if (file->ind_write == IOBUFFER_SIZE) {
+        int bytes_written = write(file->fd, file->buffer_write, IOBUFFER_SIZE);
+        if (bytes_written < 0) {
+            return -1;
+        }
+        file->ind_write = 0;
+    }
+
+    return 0;
 }
