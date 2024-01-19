@@ -21,3 +21,13 @@ mais après ma solution si le nombre de caractère saisis est supérieur a BUF_S
 ## Exercice 22:
 
 si les chaines de caractère donné au fonction ne finis pas par '\0' alors celle ci sorterons du des chaines de caractère et il peut y avoir aussi un dépassement de mémoire, on peut corriger cela on ajoutant un longueur max pour les chaines à traiter.
+
+## Exercice 40:
+
+Pour benchmarck mon programme je créer 3 fichier de 1 Mo a 100Mo puis je les copie ave mini_cp
+
+| Taille du fichier | Temps réel | Temps utilisateur | Temps système |
+|-------------------|------------|-------------------|--------------|
+| 1Mo               | 0m0,493s   | 0m0,289s          | 0m0,204s     |
+| 10Mo              | 0m0,493s   | 0m0,289s          | 0m0,204s     |
+| 100Mo             | 0m0,485s   | 0m0,293s          | 0m0,191s     |

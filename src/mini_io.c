@@ -35,7 +35,7 @@ MYFILE* mini_fopen(char* file, char mode){
 
     switch(mode) {
         case 'r':
-            flags = O_RDONLY | O_CREAT;
+            flags = O_RDONLY;
             break;
         case 'w':
             flags = O_WRONLY | O_CREAT;
