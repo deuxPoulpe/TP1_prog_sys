@@ -1,4 +1,4 @@
-#include "../mini_lib.h"
+#include "../mini_lib/mini_lib.h"
 #include <unistd.h>
 #include <sys/types.h>
 

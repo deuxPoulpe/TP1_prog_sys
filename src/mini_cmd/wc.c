@@ -1,4 +1,6 @@
-#include "../mini_lib.h"
+#include "../mini_lib/mini_lib.h"
+#include <unistd.h>
+
 #define BUF_SIZE 1024
 
 int main(int argc, char* argv[]) {

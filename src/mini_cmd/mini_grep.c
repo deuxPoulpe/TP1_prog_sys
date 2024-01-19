@@ -1,4 +1,5 @@
-#include "../mini_lib.h"
+#include "../mini_lib/mini_lib.h"
+#include <unistd.h>
 
 
 int main(int argc, char* argv[]) {

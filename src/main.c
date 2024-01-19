@@ -1,9 +1,8 @@
-#include "mini_lib.h"
+#include "./mini_lib/mini_lib.h"
 #include <unistd.h>
 
 
-
-int main(int argc, char **argv) {
+int main() {
 
     mini_printf("Test de mini_calloc et mini_free\n");
 

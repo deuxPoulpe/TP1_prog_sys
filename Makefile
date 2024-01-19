@@ -62,10 +62,13 @@ wc: $(OBJ_WC)
 	$(CC) $(CFLAGS) -o $(EXEC_DIR)/$@ $^
 
 
-$(OBJ_DIR)/%.o: src/%.c $(DEPS_MAIN)
+$(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_MAIN)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_TOUCH)
+$(OBJ_DIR)/%.o: src/main.c $(DEPS_MAIN)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(OBJ_DIR)/%.o: src/mini_cmd/%.c $(DEPS_TOUCH)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 

@@ -21,7 +21,6 @@ typedef struct {
     int ind_write;          ///< Indice d'écriture dans le tampon d'écriture.
 } MYFILE;
 
-#define NULL ((void*)0)
 
 /**
  * @brief Alloue et initialise une zone de mémoire pour un tableau d'éléments.
