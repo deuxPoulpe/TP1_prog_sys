@@ -26,7 +26,7 @@ si les chaines de caractère donné au fonction ne finis pas par '\0' alors cell
 
 Pour benchmarck mon programme je créer 3 fichier de 1 Mo a 100Mo puis je les copie ave mini_cp
 
-| Taille du fichier | Temps réel | Temps utilisateur | Temps système |
+| Taille du fichier | Temps réel | Temps utilisateur | Temps système|
 |-------------------|------------|-------------------|--------------|
 | 1Mo               | 0m0,493s   | 0m0,289s          | 0m0,204s     |
 | 10Mo              | 0m0,493s   | 0m0,289s          | 0m0,204s     |
