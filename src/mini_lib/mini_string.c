@@ -39,6 +39,15 @@ void mini_printf(char * str){
 
         }
     }
+
+    if (write(1, buffer, ind + 1) == -1) {
+                mini_perror("Error while writing");
+                mini_exit();
+
+            }
+    ind = -1;
+    mini_memset(buffer, '\0', BUF_SIZE);
+    
 }
 
 
