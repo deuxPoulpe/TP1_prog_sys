@@ -52,7 +52,7 @@ MYFILE* mini_fopen(char* file, char mode){
 
     fl->ind_read = -1;
     fl->ind_write = -1;
-    fl->fd = open(file, flags, 0644);
+    fl->fd = open(file, flags, 0600);
 
     if (fl->fd == -1) {
         mini_free(fl);

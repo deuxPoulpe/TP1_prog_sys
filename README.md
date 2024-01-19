@@ -31,3 +31,13 @@ Pour benchmarck mon programme je créer 3 fichier de 1 Mo a 100Mo puis je les co
 | 1Mo               | 0m0,016s   | 0m0,009s          | 0m0,006s     |
 | 10Mo              | 0m0,076s   | 0m0,040s          | 0m0,037s     |
 | 100Mo             | 0m0,526s   | 0m0,308s          | 0m0,218s     |
+
+Temps du benchmarck pour les différentes implémentation en td:
+
+|taille du fichier | Appels systèmes |      Glibc      |       MMap      |
+|------------------|-----------------|-----------------|-----------------|
+|1 Mo              |     0,016s      |     0,014s      |     0,008s      |
+|10 Mo             |      0,16s      |     0,115s      |     0,067s      |
+|100 Mo            |      1,30s      |       0,9s      |       0,5s      |
+
+On peut donc voir que notre implémentation du cp est plus rapide que l'utilisation d'appels systèmes ou de la Glibc

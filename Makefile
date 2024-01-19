@@ -4,8 +4,7 @@ OBJ_DIR = obj
 EXEC_DIR = exec
 
 # Path: src/
-DEPS_MAIN = $(wildcard src/*.h)
-DEPS_TOUCH = $(wildcard src/*.h)
+DEPS_MINIGLIBC = $(wildcard src/mini_lib/*.h)
 
 
 # Path: obj/
@@ -20,8 +19,9 @@ OBJ_TAIL = $(OBJ_DIR)/mini_tail.o $(OBJ_MINI_GLIBC)
 OBJ_CLEAN = $(OBJ_DIR)/mini_clean.o $(OBJ_MINI_GLIBC)
 OBJ_GREP = $(OBJ_DIR)/mini_grep.o $(OBJ_MINI_GLIBC)
 OBJ_WC = $(OBJ_DIR)/wc.o $(OBJ_MINI_GLIBC)
+OBJ_SHELL = $(OBJ_DIR)/mini_shell.o $(OBJ_MINI_GLIBC)
 
-EXEC = main mini_touch mini_cp mini_echo mini_cat mini_head mini_tail mini_clean mini_grep wc
+EXEC = main mini_touch mini_cp mini_echo mini_cat mini_head mini_tail mini_clean mini_grep wc mini_shell
 
 all: $(OBJ_DIR) $(EXEC_DIR) $(EXEC)
 
@@ -61,15 +61,20 @@ mini_grep: $(OBJ_GREP)
 wc: $(OBJ_WC)
 	$(CC) $(CFLAGS) -o $(EXEC_DIR)/$@ $^
 
+mini_shell: $(OBJ_SHELL)
+	$(CC) $(CFLAGS) -o $(EXEC_DIR)/$@ $^
 
-$(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_MAIN)
+
+$(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_MINIGLIBC)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR)/%.o: src/main.c $(DEPS_MAIN)
+$(OBJ_DIR)/%.o: src/%.c $(DEPS_MINIGLIBC)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR)/%.o: src/mini_cmd/%.c $(DEPS_TOUCH)
+$(OBJ_DIR)/%.o: src/mini_cmd/%.c $(DEPS_MINIGLIBC)
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+
 
 
 clean:
