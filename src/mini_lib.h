@@ -21,6 +21,8 @@ typedef struct {
     int ind_write;          ///< Indice d'écriture dans le tampon d'écriture.
 } MYFILE;
 
+#define NULL ((void*)0)
+
 /**
  * @brief Alloue et initialise une zone de mémoire pour un tableau d'éléments.
  *
@@ -194,6 +196,48 @@ int mini_fgetc(MYFILE *file);
  * @return Le caractère écrit ou -1 en cas d'erreur.
  */
 int mini_fputc(MYFILE* file, char c);
+
+/**
+ * @brief Concatène deux chaînes de caractères.
+ *
+ * @param dest Chaîne de destination.
+ * @param src Chaîne source.
+ */
+
+void mini_strcat(char* dest, const char* src);
+
+
+
+/**
+ * @brief Convertit une chaîne de caractères en un entier.
+ *
+ * @param str Chaîne de caractères à convertir.
+ * @return L'entier représenté par la chaîne de caractères.
+ */
+
+int char_to_int(char *str);
+
+
+
+/**
+ * @brief Déplace le curseur de lecture dans un fichier ouvert avec mini_fopen.
+ *
+ * @param file Pointeur vers la structure MYFILE représentant le fichier.
+ * @param offset Déplacement à effectuer.
+ * @param whence Position de départ du déplacement.
+ * @return 0 si le déplacement a été effectué avec succès, ou une valeur négative en cas d'erreur.
+ */
+int mini_fseek(MYFILE* file, long offset, int whence);
+
+
+/**
+ * @brief Cherche la première occurence d'une chaîne de caractères dans une autre.
+ *
+ * @param text Chaîne de caractères dans laquelle chercher.
+ * @param word Chaîne de caractères à chercher.
+ * @return Un pointeur vers la première occurence de word dans text, ou NULL si word n'est pas dans text.
+ */
+char* mini_strstr(char* text, char* word);
 
 
 

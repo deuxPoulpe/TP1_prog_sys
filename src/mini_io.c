@@ -30,9 +30,29 @@ MYFILE* mini_fopen(char* file, char mode){
     if (fl == NULL) {
         return NULL;
     }
+
+    int flags;
+
+    switch(mode) {
+        case 'r':
+            flags = O_RDONLY | O_CREAT;
+            break;
+        case 'w':
+            flags = O_WRONLY | O_CREAT;
+            break;
+        case 'b':
+            flags = O_RDWR | O_CREAT;
+            break;
+        case 'a':
+            flags = O_WRONLY | O_CREAT | O_APPEND;
+            break;
+        default:
+            return NULL;
+    }
+
     fl->ind_read = -1;
     fl->ind_write = -1;
-    fl->fd = open(file, mode);
+    fl->fd = open(file, flags, 0644);
 
     if (fl->fd == -1) {
         mini_free(fl);
@@ -157,10 +177,30 @@ int fclose(MYFILE* file) {
         return -1;
     }
 
+    int is_found = 0;
+    for (int i = 0; i < ind_tab; i++) {
+        if (tab[i] == file) {
+            is_found = 1;
+            for (int j = i; j < ind_tab - 1; j++) {
+                tab[j] = tab[j + 1];
+            }
+            ind_tab--;
+            break;
+        }
+    }
+
+    if (!is_found) {
+        return -1;
+    }
+
     int close_result = close(file->fd);
     if (close_result == -1) {
         return -1;
     }
+
+    mini_free(file->buffer_read);
+    mini_free(file->buffer_write);
+    mini_free(file);
 
     return 0;
 }
@@ -214,6 +254,24 @@ int mini_fputc(MYFILE* file, char c) {
         }
         file->ind_write = 0;
     }
+
+    return 0;
+}
+
+
+int mini_fseek(MYFILE* file, long offset, int whence) {
+    if (file == NULL || file->fd == -1) {
+        return -1;
+    }
+
+    off_t new_offset = lseek(file->fd, offset, whence);
+
+    if (new_offset == (off_t)-1) {
+        return -1;
+    }
+
+    file->ind_read = IOBUFFER_SIZE;
+    file->ind_write = 0;
 
     return 0;
 }

@@ -64,3 +64,20 @@ char * int_to_char(int i){
     str[j] = '\n';
     return str;
 }
+
+int char_to_int(char *str) {
+    int i = 0;
+    int sign = 1;
+    if (str[0] == '-') {
+        sign = -1;
+        i++;
+    }
+
+    int res = 0;
+    while (str[i] != '\0' && str[i] != '\n') {
+        res = res * 10 + str[i] - '0';
+        i++;
+    }
+
+    return sign * res;
+}

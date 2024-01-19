@@ -3,10 +3,6 @@ CFLAGS = -Wall -Wextra -g
 OBJ_DIR = obj
 
 # Path: src/
-SRC_MAIN = src/main.c
-SRC_TOUCH = src/mini_lib/mini_touch.c
-SRC_CP = src/mini_lib/mini_cp.c
-SRC_ECHO = src/mini_lib/mini_echo.c
 DEPS_MAIN = $(wildcard src/*.h)
 DEPS_TOUCH = $(wildcard src/*.h)
 
@@ -17,9 +13,16 @@ OBJ_MAIN = $(OBJ_DIR)/main.o $(OBJ_MINI_GLIBC)
 OBJ_TOUCH = $(OBJ_DIR)/mini_touch.o $(OBJ_MINI_GLIBC)
 OBJ_CP = $(OBJ_DIR)/mini_cp.o $(OBJ_MINI_GLIBC)
 OBJ_ECHO = $(OBJ_DIR)/mini_echo.o $(OBJ_MINI_GLIBC)
+OBJ_CAT = $(OBJ_DIR)/mini_cat.o $(OBJ_MINI_GLIBC)
+OBJ_HEAD = $(OBJ_DIR)/mini_head.o $(OBJ_MINI_GLIBC)
+OBJ_TAIL = $(OBJ_DIR)/mini_tail.o $(OBJ_MINI_GLIBC)
+OBJ_CLEAN = $(OBJ_DIR)/mini_clean.o $(OBJ_MINI_GLIBC)
+OBJ_GREP = $(OBJ_DIR)/mini_grep.o $(OBJ_MINI_GLIBC)
+OBJ_WC = $(OBJ_DIR)/wc.o $(OBJ_MINI_GLIBC)
 
+EXEC = main mini_touch mini_cp mini_echo mini_cat mini_head mini_tail mini_clean mini_grep wc
 
-all: $(OBJ_DIR) main mini_touch mini_cp mini_echo
+all: $(OBJ_DIR) $(EXEC)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -36,6 +39,24 @@ mini_cp: $(OBJ_CP)
 mini_echo: $(OBJ_ECHO)
 	$(CC) $(CFLAGS) -o $@ $^
 
+mini_cat: $(OBJ_CAT)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_head: $(OBJ_HEAD)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_tail: $(OBJ_TAIL)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_clean: $(OBJ_CLEAN)
+	$(CC) $(CFLAGS) -o $@ $^
+
+mini_grep: $(OBJ_GREP)
+	$(CC) $(CFLAGS) -o $@ $^
+
+wc: $(OBJ_WC)
+	$(CC) $(CFLAGS) -o $@ $^
+
 $(OBJ_DIR)/%.o: src/%.c $(DEPS_MAIN)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
@@ -44,4 +65,4 @@ $(OBJ_DIR)/%.o: src/mini_lib/%.c $(DEPS_TOUCH)
 
 
 clean:
-	rm -rf $(OBJ_DIR) main mini_touch
+	rm -rf $(OBJ_DIR) $(EXEC)

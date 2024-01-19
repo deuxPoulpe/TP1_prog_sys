@@ -100,5 +100,10 @@ int main(int argc, char **argv) {
     mini_printf("=========== Fin du test de mini_fgetc ===========\n");
     fclose(new_file);
 
+
+    mini_free(new_file);
+    mini_free(file);
+
+
     mini_exit();
 }

@@ -1,6 +1,5 @@
 #include "mini_lib.h"
 #include <unistd.h>
-#include <string.h>
 
 #define BUF_SIZE 1024
 #define MAX_SIZE 1024
@@ -111,4 +110,44 @@ int mini_strcmp(char* s1, char* s2){
     else{
         return 1;
     }
+}
+
+void mini_strcat(char* dest, const char* src) {
+    int dest_len = mini_strlen(dest);
+    int i;
+
+    for (i = 0; src[i] != '\0'; i++) {
+        dest[dest_len + i] = src[i];
+    }
+
+    dest[dest_len + i] = '\0';
+}
+
+
+char* mini_strstr(char* text, char* word) {
+    if (text == NULL || word == NULL) {
+        return NULL;
+    }
+
+    int text_len = mini_strlen(text);
+    int word_len = mini_strlen(word);
+
+    if (word_len == 0) {
+        return text;
+    }
+
+    for (int i = 0; i <= text_len - word_len; i++) {
+        int j;
+        for (j = 0; j < word_len; j++) {
+            if (text[i + j] != word[j]) {
+                break;
+            }
+        }
+
+        if (j == word_len) {
+            return &text[i];
+        }
+    }
+
+    return NULL;
 }
