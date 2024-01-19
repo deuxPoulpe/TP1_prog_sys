@@ -28,6 +28,6 @@ Pour benchmarck mon programme je créer 3 fichier de 1 Mo a 100Mo puis je les co
 
 | Taille du fichier | Temps réel | Temps utilisateur | Temps système|
 |-------------------|------------|-------------------|--------------|
-| 1Mo               | 0m0,493s   | 0m0,289s          | 0m0,204s     |
-| 10Mo              | 0m0,493s   | 0m0,289s          | 0m0,204s     |
-| 100Mo             | 0m0,485s   | 0m0,293s          | 0m0,191s     |
+| 1Mo               | 0m0,016s   | 0m0,009s          | 0m0,006s     |
+| 10Mo              | 0m0,076s   | 0m0,040s          | 0m0,037s     |
+| 100Mo             | 0m0,526s   | 0m0,308s          | 0m0,218s     |
